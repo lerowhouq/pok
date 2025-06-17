@@ -1,3 +1,239 @@
+// Cookie Management Functions
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = name + "=" + value + ";expires=" + expires.toUTCString() + ";path=/";
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function deleteCookie(name) {
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+}
+
+// Age Verification Popup
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded - Age verification script running');
+    
+    const agePopup = document.getElementById('ageVerificationPopup');
+    const acceptBtn = document.getElementById('acceptAge');
+    const closeBtn = document.getElementById('closeAge');
+    
+    console.log('Age popup element:', agePopup);
+    console.log('Accept button:', acceptBtn);
+    console.log('Close button:', closeBtn);
+    
+    if (!agePopup) {
+        console.error('Age popup element not found!');
+        return;
+    }
+    
+    // Check if user has already accepted age verification via cookie
+    const ageAccepted = getCookie('ageVerified');
+    const userCountry = getCookie('userCountry');
+    const userLanguage = getCookie('userLanguage');
+    
+    console.log('Age verification cookie:', ageAccepted);
+    console.log('User country cookie:', userCountry);
+    console.log('User language cookie:', userLanguage);
+    
+    // If user has already accepted, don't show popup
+    if (ageAccepted === 'true') {
+        console.log('User already verified age - hiding popup');
+        agePopup.classList.add('hidden');
+        return;
+    }
+    
+    // Accept button - hide popup and set cookie
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', function() {
+            console.log('Accept button clicked - setting cookies');
+            
+            // Set age verification cookie (expires in 1 year)
+            setCookie('ageVerified', 'true', 365);
+            
+            // Set timestamp of verification
+            setCookie('ageVerifiedTimestamp', new Date().toISOString(), 365);
+            
+            // Set user preferences cookies
+            setCookie('userPreferences', JSON.stringify({
+                theme: 'dark',
+                notifications: true,
+                language: navigator.language || 'en'
+            }), 365);
+            
+            // Track user interaction
+            setCookie('lastVisit', new Date().toISOString(), 365);
+            setCookie('visitCount', (parseInt(getCookie('visitCount') || '0') + 1).toString(), 365);
+            
+            agePopup.classList.add('hidden');
+        });
+    }
+    
+    // Close button - redirect to forbidden page
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            console.log('Close button clicked - redirecting to forbidden page');
+            
+            // Set a cookie to track denied access
+            setCookie('ageVerificationDenied', 'true', 30);
+            setCookie('deniedTimestamp', new Date().toISOString(), 30);
+            
+            // Redirect to forbidden page
+            window.location.href = 'forbidden.html';
+        });
+    }
+    
+    // Prevent closing by clicking outside
+    agePopup.addEventListener('click', function(e) {
+        if (e.target === agePopup) {
+            console.log('Clicked outside popup - keeping it open');
+            // Keep popup open - don't allow closing by clicking outside
+        }
+    });
+    
+    // Additional cookie tracking for analytics
+    function trackUserBehavior() {
+        // Track page load time
+        const loadTime = performance.now();
+        setCookie('pageLoadTime', loadTime.toString(), 1);
+        
+        // Track user agent
+        setCookie('userAgent', navigator.userAgent, 30);
+        
+        // Track screen resolution
+        setCookie('screenResolution', `${screen.width}x${screen.height}`, 30);
+        
+        // Track timezone
+        setCookie('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone, 30);
+    }
+    
+    // Track user behavior after a short delay
+    setTimeout(trackUserBehavior, 1000);
+});
+
+// Cookie Consent Banner
+document.addEventListener('DOMContentLoaded', function() {
+    const cookieBanner = document.getElementById('cookieConsent');
+    const acceptCookiesBtn = document.getElementById('acceptCookies');
+    const rejectCookiesBtn = document.getElementById('rejectCookies');
+    const customizeCookiesBtn = document.getElementById('customizeCookies');
+    
+    // Check if user has already made a cookie choice
+    const cookieConsent = getCookie('cookieConsent');
+    
+    if (cookieConsent) {
+        console.log('Cookie consent already given:', cookieConsent);
+        return; // Don't show banner if consent already given
+    }
+    
+    // Show cookie banner after age verification (if needed)
+    setTimeout(() => {
+        if (cookieBanner) {
+            cookieBanner.classList.add('show');
+            console.log('Showing cookie consent banner');
+        }
+    }, 2000); // Show 2 seconds after page load
+    
+    // Accept all cookies
+    if (acceptCookiesBtn) {
+        acceptCookiesBtn.addEventListener('click', function() {
+            console.log('User accepted all cookies');
+            
+            // Set consent cookie
+            setCookie('cookieConsent', 'all', 365);
+            setCookie('cookieConsentTimestamp', new Date().toISOString(), 365);
+            
+            // Enable all cookie types
+            setCookie('cookiesEssential', 'true', 365);
+            setCookie('cookiesPreferences', 'true', 365);
+            setCookie('cookiesAnalytics', 'true', 365);
+            setCookie('cookiesSecurity', 'true', 365);
+            
+            // Hide banner
+            cookieBanner.classList.remove('show');
+        });
+    }
+    
+    // Reject non-essential cookies
+    if (rejectCookiesBtn) {
+        rejectCookiesBtn.addEventListener('click', function() {
+            console.log('User rejected non-essential cookies');
+            
+            // Set consent cookie
+            setCookie('cookieConsent', 'essential', 365);
+            setCookie('cookieConsentTimestamp', new Date().toISOString(), 365);
+            
+            // Only enable essential cookies
+            setCookie('cookiesEssential', 'true', 365);
+            setCookie('cookiesPreferences', 'false', 365);
+            setCookie('cookiesAnalytics', 'false', 365);
+            setCookie('cookiesSecurity', 'false', 365);
+            
+            // Delete non-essential cookies
+            deleteCookie('userPreferences');
+            deleteCookie('pageLoadTime');
+            deleteCookie('userAgent');
+            deleteCookie('screenResolution');
+            deleteCookie('timezone');
+            deleteCookie('visitCount');
+            deleteCookie('lastVisit');
+            
+            // Hide banner
+            cookieBanner.classList.remove('show');
+        });
+    }
+    
+    // Customize cookies (placeholder for future implementation)
+    if (customizeCookiesBtn) {
+        customizeCookiesBtn.addEventListener('click', function() {
+            console.log('User wants to customize cookies');
+            
+            // For now, just accept essential cookies
+            // In the future, you could show a detailed cookie settings modal
+            setCookie('cookieConsent', 'custom', 365);
+            setCookie('cookiesEssential', 'true', 365);
+            
+            // Hide banner
+            cookieBanner.classList.remove('show');
+            
+            // Show a simple alert for now
+            alert('Cookie customization feature coming soon. For now, only essential cookies will be used.');
+        });
+    }
+});
+
+// Function to check if specific cookie types are allowed
+function isCookieAllowed(cookieType) {
+    const consent = getCookie('cookieConsent');
+    const specificConsent = getCookie('cookies' + cookieType.charAt(0).toUpperCase() + cookieType.slice(1));
+    
+    if (consent === 'all') return true;
+    if (consent === 'essential' && cookieType === 'essential') return true;
+    if (consent === 'custom' && specificConsent === 'true') return true;
+    
+    return false;
+}
+
+// Enhanced cookie setting function with consent check
+function setCookieWithConsent(name, value, days, cookieType = 'essential') {
+    if (isCookieAllowed(cookieType)) {
+        setCookie(name, value, days);
+        console.log(`Cookie set: ${name} (${cookieType})`);
+    } else {
+        console.log(`Cookie blocked: ${name} (${cookieType} not allowed)`);
+    }
+}
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -15,36 +251,38 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
     });
 });
 
-// Smooth scrolling function
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        section.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-}
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
 
-// Countdown Timer
+// Countdown timer
 function updateCountdown() {
-    // Set the tournament date (20 November 2025)
-    const tournamentDate = new Date('November 20, 2025 10:00:00').getTime();
+    const targetDate = new Date('November 20, 2025 23:59:59').getTime();
     const now = new Date().getTime();
-    const distance = tournamentDate - now;
+    const difference = targetDate - now;
 
-    if (distance > 0) {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
         document.getElementById('days').textContent = days.toString().padStart(2, '0');
         document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
         document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
         document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
     } else {
-        // Tournament has started or passed, keep showing 00:00:00:00
+        // Countdown has ended
         document.getElementById('days').textContent = '00';
         document.getElementById('hours').textContent = '00';
         document.getElementById('minutes').textContent = '00';
@@ -56,105 +294,7 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown(); // Initial call
 
-// Form Submission
-const tournamentForm = document.getElementById('tournament-form');
-
-tournamentForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
-    
-    // Basic validation
-    if (!data.name || !data.email || !data.phone || !data.experience) {
-        showNotification('Please fill in all required fields.', 'error');
-        return;
-    }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        showNotification('Please enter a valid email address.', 'error');
-        return;
-    }
-    
-    // Phone validation
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-    if (!phoneRegex.test(data.phone.replace(/\s/g, ''))) {
-        showNotification('Please enter a valid phone number.', 'error');
-        return;
-    }
-    
-    // Simulate form submission
-    showNotification('Registration submitted successfully! We\'ll contact you soon.', 'success');
-    
-    // Reset form
-    this.reset();
-    
-    // In a real application, you would send the data to a server
-    console.log('Registration data:', data);
-});
-
-// Notification system
-function showNotification(message, type = 'info') {
-    // Remove existing notifications
-    const existingNotification = document.querySelector('.notification');
-    if (existingNotification) {
-        existingNotification.remove();
-    }
-    
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span class="notification-message">${message}</span>
-            <button class="notification-close">&times;</button>
-        </div>
-    `;
-    
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#3498db'};
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        z-index: 10000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        max-width: 400px;
-    `;
-    
-    // Add to page
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Close button functionality
-    const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.addEventListener('click', () => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => notification.remove(), 300);
-    });
-    
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.style.transform = 'translateX(100%)';
-            setTimeout(() => notification.remove(), 300);
-        }
-    }, 5000);
-}
-
-// Intersection Observer for animations
+// Intersection Observer for fade-in animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -168,10 +308,207 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all sections for animation
-document.querySelectorAll('section').forEach(section => {
-    observer.observe(section);
+// Observe all sections and important elements
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section');
+    const features = document.querySelectorAll('.feature');
+    const scheduleDays = document.querySelectorAll('.schedule-day');
+    const prizeTiers = document.querySelectorAll('.prize-tier');
+    
+    sections.forEach(section => observer.observe(section));
+    features.forEach(feature => observer.observe(feature));
+    scheduleDays.forEach(day => observer.observe(day));
+    prizeTiers.forEach(tier => observer.observe(tier));
 });
+
+// Enhanced form validation
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.registration-form');
+    const phoneInput = document.getElementById('phone');
+    
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            // Remove all non-digit characters except +, spaces, hyphens, and parentheses
+            let value = e.target.value.replace(/[^\d\s\-\(\)\+]/g, '');
+            
+            // Ensure only one + at the beginning
+            if (value.startsWith('+')) {
+                value = '+' + value.substring(1).replace(/\+/g, '');
+            }
+            
+            e.target.value = value;
+        });
+    }
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#e74c3c';
+                } else {
+                    field.style.borderColor = 'rgba(255, 215, 0, 0.3)';
+                }
+            });
+            
+            if (isValid) {
+                // Collect form data
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                
+                // Store in session storage for payment page
+                sessionStorage.setItem('registrationData', JSON.stringify(data));
+                
+                // Redirect to payment page
+                window.location.href = 'payment.html';
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+    }
+});
+
+// Parallax effect for hero section
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const hero = document.querySelector('.hero');
+    const cards = document.querySelectorAll('.card');
+    
+    if (hero) {
+        const rate = scrolled * -0.5;
+        hero.style.transform = `translateY(${rate}px)`;
+    }
+    
+    // Subtle card movement
+    cards.forEach((card, index) => {
+        const rate = scrolled * (0.1 + index * 0.02);
+        card.style.transform = `translateY(${rate}px) rotate(-8deg)`;
+    });
+});
+
+// Smooth reveal animations for stats
+function animateStats() {
+    const stats = document.querySelectorAll('.stat-number');
+    stats.forEach((stat, index) => {
+        setTimeout(() => {
+            stat.style.opacity = '1';
+            stat.style.transform = 'translateY(0)';
+        }, index * 200);
+    });
+}
+
+// Trigger stats animation when hero section is visible
+const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateStats();
+            heroObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+const heroSection = document.querySelector('.hero');
+if (heroSection) {
+    heroObserver.observe(heroSection);
+}
+
+// Enhanced hover effects for interactive elements
+document.addEventListener('DOMContentLoaded', () => {
+    const interactiveElements = document.querySelectorAll('.btn, .feature, .schedule-day, .prize-tier');
+    
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+        
+        element.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+});
+
+// Loading animation
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+});
+
+// Add loading class to body initially
+document.body.classList.add('loading');
+
+// Utility function for smooth element transitions
+function smoothTransition(element, properties, duration = 300) {
+    element.style.transition = `all ${duration}ms ease`;
+    Object.assign(element.style, properties);
+    
+    setTimeout(() => {
+        element.style.transition = '';
+    }, duration);
+}
+
+// Enhanced mobile menu functionality (if needed)
+function initMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+}
+
+// Initialize mobile menu
+initMobileMenu();
+
+// Add some CSS for loading state
+const style = document.createElement('style');
+style.textContent = `
+    body.loading {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    
+    body.loaded {
+        opacity: 1;
+    }
+    
+    .stat-number {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+    }
+    
+    .fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
+document.head.appendChild(style);
 
 // Card animation on hover
 document.querySelectorAll('.card').forEach(card => {
@@ -227,22 +564,6 @@ document.querySelectorAll('.form-group input, .form-group select').forEach(input
     
     input.addEventListener('blur', function() {
         this.parentElement.style.transform = 'translateY(0)';
-    });
-});
-
-// Add loading animation to page
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-});
-
-// Parallax effect for floating cards
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallax = document.querySelectorAll('.floating-card');
-    
-    parallax.forEach((card, index) => {
-        const speed = 0.5 + (index * 0.1);
-        card.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
     });
 });
 

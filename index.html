@@ -3,18 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Majectic Poker / Ultra High Roller 2025</title>
+    <title>Elite Poker Championship 2025 - Premium Tournament Experience</title>
+    <meta name="description" content="Join the most prestigious poker tournament of 2025. €5,000,000 prize pool, luxury venue, world-class players. Register now for the Elite Poker Championship.">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Age Verification Popup -->
+    <div id="ageVerificationPopup" class="age-popup">
+        <div class="age-popup-content">
+            <div class="age-popup-header">
+                <h2>Age Verification Required</h2>
+            </div>
+            <div class="age-popup-body">
+                <div class="age-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <p>You must be 18 years of age or older to access this poker tournament website.</p>
+                <p class="age-question">Are you 18 years of age or older?</p>
+            </div>
+            <div class="age-popup-buttons">
+                <button id="acceptAge" class="btn btn-primary">Accept</button>
+                <button id="closeAge" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="cookie-banner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3><i class="fas fa-cookie-bite"></i> Cookie Policy</h3>
+                <p>We use cookies to enhance your experience, remember your preferences, and analyze site traffic. By continuing to use this site, you consent to our use of cookies.</p>
+                <div class="cookie-details">
+                    <details>
+                        <summary>What cookies do we use?</summary>
+                        <ul>
+                            <li><strong>Essential cookies:</strong> Age verification, site functionality</li>
+                            <li><strong>Preference cookies:</strong> Language, theme, user settings</li>
+                            <li><strong>Analytics cookies:</strong> Page visits, load times, user behavior</li>
+                            <li><strong>Security cookies:</strong> Session management, fraud prevention</li>
+                        </ul>
+                    </details>
+                </div>
+            </div>
+            <div class="cookie-buttons">
+                <button id="acceptCookies" class="btn btn-primary">Accept All</button>
+                <button id="rejectCookies" class="btn btn-secondary">Reject Non-Essential</button>
+                <button id="customizeCookies" class="btn btn-secondary">Customize</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html#home" class="nav-logo-link">Majectic Poker / Ultra High Roller 2025</a>
-            </div>
+            <a href="#home" class="nav-logo-link">ELITE POKER</a>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -22,11 +67,6 @@
                 <li><a href="#prizes">Prizes</a></li>
                 <li><a href="#register">Register</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
     </nav>
 
@@ -34,89 +74,67 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-text">
-                <img src="logo.png" alt="Royal Flush Logo" class="hero-logo" height="300" style="display:block; margin:0 auto 2rem auto;">
-                <h1>Majectic Poker / Ultra High Roller 2025</h1>
-                <p class="hero-subtitle">The Ultimate Texas Hold'em Experience</p>
-                <p class="hero-description">
-                    Join the most prestigious poker tournament of the year. 
-                    Compete against the best players and win your share of the €5,000,000 prize pool.
-                </p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">€5M</span>
-                        <span class="stat-label">Prize Pool</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">500+</span>
-                        <span class="stat-label">Players</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Days</span>
-                    </div>
-                </div>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="scrollToSection('register')">
-                        Register Now
-                    </button>
-                    <button class="btn btn-secondary" onclick="scrollToSection('about')">
-                        Learn More
-                    </button>
-                </div>
             </div>
-            <div class="hero-visual">
-                <div class="poker-cards">
-                    <div class="card card-1">A♠</div>
-                    <div class="card card-2">K♠</div>
-                    <div class="card card-3">Q♠</div>
-                    <div class="card card-4">J♠</div>
-                    <div class="card card-5">10♠</div>
+            
+            <div class="hero-prize-display">
+                <img src="logo.png" alt="Elite Poker Championship Logo" class="hero-logo">
+                <div class="tournament-info">
+                    <div class="tournament-dates">DECEMBER 4-8, 2025</div>
+                    <div class="tournament-location">Casino di Campione, Italy</div>
                 </div>
+                <div class="big-prize-text">€5,000,000</div>
+                <div class="prize-subtitle">PRIZE POOL</div>
+                <a href="#register" class="btn btn-primary btn-all-in">ALL IN!</a>
             </div>
-        </div>
-        <div class="hero-background">
-            <div class="floating-card floating-card-1">♠</div>
-            <div class="floating-card floating-card-2">♥</div>
-            <div class="floating-card floating-card-3">♦</div>
-            <div class="floating-card floating-card-4">♣</div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2>About the Tournament</h2>
+            <h2>About the Championship</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        The Royal Flush Poker Tournament is the premier event for serious poker players. 
-                        This three-day extravaganza features multiple tournament formats, including 
-                        Texas Hold'em, Omaha, and mixed games.
+                        The Elite Poker Championship represents the highest level of competitive poker, bringing together 
+                        the world's most skilled players in an atmosphere of luxury and prestige. This exclusive event 
+                        combines the thrill of high-stakes poker with world-class hospitality and entertainment.
                     </p>
-                    <div class="features">
-                        <div class="feature">
-                            <i class="fas fa-trophy"></i>
-                            <h3>Professional Setup</h3>
-                            <p>World-class tables, professional dealers, and tournament software</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-users"></i>
-                            <h3>Live Streaming</h3>
-                            <p>Watch the final table live with expert commentary</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-medal"></i>
-                            <h3>Multiple Events</h3>
-                            <p>Satellite tournaments and side events throughout the weekend</p>
+                    <p>
+                        Set in a stunning venue with state-of-the-art facilities, the championship offers an unparalleled 
+                        poker experience. From the moment you arrive, you'll be immersed in an environment designed for 
+                        champions, with every detail crafted to enhance your performance and enjoyment.
+                    </p>
+                </div>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-trophy"></i>
+                        <div>
+                            <h3>World-Class Competition</h3>
+                            <p>Face off against the best players from around the globe in a truly international tournament.</p>
                         </div>
                     </div>
-                </div>
-                <div class="about-image">
-                    <div class="tournament-preview">
-                       <!-- <video src="tournament-preview.mp4" autoplay loop muted playsinline style="width:100%; border-radius:15px; display:block;"></video>
-                        -->
-                        <img src="casino.jpg" alt="Poker Tournament" style="width:100%; border-radius:15px; display:block;">
-                        
+                    <div class="feature">
+                        <i class="fas fa-star"></i>
+                        <div>
+                            <h3>Luxury Experience</h3>
+                            <p>Enjoy premium accommodations, gourmet dining, and exclusive amenities throughout the event.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h3>Networking Opportunities</h3>
+                            <p>Connect with fellow poker enthusiasts and industry professionals in exclusive social events.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-camera"></i>
+                        <div>
+                            <h3>Professional Coverage</h3>
+                            <p>Your journey will be captured by professional photographers and videographers for lasting memories.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,131 +147,107 @@
             <h2>Tournament Schedule</h2>
             <div class="schedule-grid">
                 <div class="schedule-day">
-                    <h3>Day 1 - Tuesday (03 December)</h3>
+                    <h3>Wednesday, December 4th</h3>
                     <div class="timeline">
                         <div class="timeline-item">
-                            <span class="time">10:00 AM</span>
+                            <div class="time">09:00</div>
                             <div class="event">
-                                <h4>Registration Opens</h4>
-                                <p>Early bird registration and player check-in</p>
+                                <h4>Registration & Welcome</h4>
+                                <p>Player check-in and welcome reception</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <span class="time">2:00 PM</span>
+                            <div class="time">14:00</div>
                             <div class="event">
-                                <h4>Main Event Day 1A</h4>
-                                <p>First flight of the main tournament</p>
+                                <h4>Opening Ceremony</h4>
+                                <p>Official tournament kickoff and player introductions</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <span class="time">8:00 PM</span>
+                            <div class="time">16:00</div>
                             <div class="event">
-                                <h4>Satellite Tournament</h4>
-                                <p>Win your way into the main event</p>
+                                <h4>Day 1 - Main Event</h4>
+                                <p>First day of tournament play begins</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="schedule-day">
-                    <h3>Day 2 - Wednesday (04 December)</h3>
+                    <h3>Thursday, December 5th</h3>
                     <div class="timeline">
                         <div class="timeline-item">
-                            <span class="time">11:00 AM</span>
+                            <div class="time">12:00</div>
                             <div class="event">
-                                <h4>Main Event Day 1B</h4>
-                                <p>Second flight of the main tournament</p>
+                                <h4>Day 2 - Main Event</h4>
+                                <p>Continued tournament play</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <span class="time">3:00 PM</span>
+                            <div class="time">19:00</div>
                             <div class="event">
-                                <h4>Omaha Tournament</h4>
-                                <p>Pot-limit Omaha side event</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="time">7:00 PM</span>
-                            <div class="event">
-                                <h4>Cash Games</h4>
-                                <p>Various stakes available</p>
+                                <h4>Players Dinner</h4>
+                                <p>Exclusive networking dinner for participants</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="schedule-day">
-                    <h3>Day 3 - Thursday (05 December)</h3>
+                    <h3>Friday, December 6th</h3>
                     <div class="timeline">
                         <div class="timeline-item">
-                            <span class="time">12:00 PM</span>
+                            <div class="time">12:00</div>
                             <div class="event">
-                                <h4>Main Event Day 2</h4>
-                                <p>Combined field continues</p>
+                                <h4>Day 3 - Main Event</h4>
+                                <p>Quarter-finals and semi-finals</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <span class="time">4:00 PM</span>
+                            <div class="time">20:00</div>
                             <div class="event">
-                                <h4>High Roller Event</h4>
-                                <p>Exclusive high stakes tournament</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="time">8:00 PM</span>
-                            <div class="event">
-                                <h4>VIP Dinner</h4>
-                                <p>Exclusive dinner for participants</p>
+                                <h4>Final Table Set</h4>
+                                <p>Final nine players determined</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="schedule-day">
-                    <h3>Day 4 - Friday (06 December)</h3>
+                    <h3>Saturday, December 7th</h3>
                     <div class="timeline">
                         <div class="timeline-item">
-                            <span class="time">1:00 PM</span>
-                            <div class="event">
-                                <h4>Main Event Day 3</h4>
-                                <p>Final table approaches</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="time">5:00 PM</span>
+                            <div class="time">14:00</div>
                             <div class="event">
                                 <h4>Final Table</h4>
-                                <p>Main event final table begins</p>
+                                <p>The ultimate showdown begins</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <span class="time">9:00 PM</span>
+                            <div class="time">21:00</div>
                             <div class="event">
-                                <h4>Championship</h4>
-                                <p>Winner crowned and prizes awarded</p>
+                                <h4>Champion Crowned</h4>
+                                <p>Winner announcement and celebration</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="schedule-day">
-                    <h3>Day 5 - Saturday (07 December)</h3>
+                    <h3>Sunday, December 8th</h3>
                     <div class="timeline">
                         <div class="timeline-item">
-                            <span class="time">12:00 PM</span>
+                            <div class="time">11:00</div>
                             <div class="event">
-                                <h4>Celebration</h4>
-                                <p>Championship dinner and awards ceremony</p>
+                                <h4>Championship Brunch</h4>
+                                <p>Celebratory brunch with all participants</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <span class="time">3:00 PM</span>
+                            <div class="time">15:00</div>
                             <div class="event">
-                                <h4>Side Events</h4>
-                                <p>Final side tournaments</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="time">7:00 PM</span>
-                            <div class="event">
-                                <h4>Farewell Party</h4>
-                                <p>Closing celebration for all participants</p>
+                                <h4>Closing Ceremony</h4>
+                                <p>Final farewells and future event announcements</p>
                             </div>
                         </div>
                     </div>
@@ -272,36 +266,47 @@
                     <span class="prize-label">Total Prize Pool</span>
                 </div>
             </div>
+            
             <div class="prize-breakdown">
                 <div class="prize-tier">
                     <div class="position">1st Place</div>
-                    <div class="amount">€2,000,000</div>
-                    <div class="percentage">40%</div>
+                    <div class="amount">€1,500,000</div>
+                    <div class="percentage">30% of Prize Pool</div>
                 </div>
                 <div class="prize-tier">
                     <div class="position">2nd Place</div>
-                    <div class="amount">€1,250,000</div>
-                    <div class="percentage">25%</div>
+                    <div class="amount">€1,000,000</div>
+                    <div class="percentage">20% of Prize Pool</div>
                 </div>
                 <div class="prize-tier">
                     <div class="position">3rd Place</div>
                     <div class="amount">€750,000</div>
-                    <div class="percentage">15%</div>
+                    <div class="percentage">15% of Prize Pool</div>
                 </div>
                 <div class="prize-tier">
                     <div class="position">4th Place</div>
                     <div class="amount">€500,000</div>
-                    <div class="percentage">10%</div>
+                    <div class="percentage">10% of Prize Pool</div>
                 </div>
                 <div class="prize-tier">
                     <div class="position">5th Place</div>
-                    <div class="amount">€350,000</div>
-                    <div class="percentage">7%</div>
+                    <div class="amount">€400,000</div>
+                    <div class="percentage">8% of Prize Pool</div>
                 </div>
                 <div class="prize-tier">
-                    <div class="position">Others</div>
-                    <div class="amount">€150,000</div>
-                    <div class="percentage">3%</div>
+                    <div class="position">6th-9th Place</div>
+                    <div class="amount">€250,000</div>
+                    <div class="percentage">5% of Prize Pool Each</div>
+                </div>
+                <div class="prize-tier">
+                    <div class="position">10th-18th Place</div>
+                    <div class="amount">€100,000</div>
+                    <div class="percentage">2% of Prize Pool Each</div>
+                </div>
+                <div class="prize-tier">
+                    <div class="position">19th-27th Place</div>
+                    <div class="amount">€50,000</div>
+                    <div class="percentage">1% of Prize Pool Each</div>
                 </div>
             </div>
         </div>
@@ -313,17 +318,19 @@
             <h2>Register Now</h2>
             <div class="registration-content">
                 <div class="registration-info">
-                    <h3>Tournament Details</h3>
+                    <h3>Join the Elite</h3>
                     <ul>
-                        <li><i class="fas fa-calendar"></i> 03 December 2025 - 07 December 2025</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Casinò di Campione</li>
-                        <li><i class="fas fa-euro-sign"></i> 5,000 Euro Buy-in</li>
-                        <li><i class="fas fa-clock"></i> 30,000 Starting Chips</li>
-                        <li><i class="fas fa-users"></i> 500 Player Cap</li>
+                        <li><i class="fas fa-check"></i> Exclusive access to premium tournament</li>
+                        <li><i class="fas fa-check"></i> Luxury accommodation included</li>
+                        <li><i class="fas fa-check"></i> Gourmet dining throughout the event</li>
+                        <li><i class="fas fa-check"></i> Professional tournament support</li>
+                        <li><i class="fas fa-check"></i> Networking events and social activities</li>
+                        <li><i class="fas fa-check"></i> Professional photography and video coverage</li>
                     </ul>
+                    
                     <div class="countdown">
                         <h4>Registration Closes In:</h4>
-                        <div id="countdown-timer" class="countdown-timer">
+                        <div class="countdown-timer">
                             <div class="countdown-item">
                                 <span id="days">00</span>
                                 <label>Days</label>
@@ -343,48 +350,91 @@
                         </div>
                     </div>
                 </div>
-                <div class="registration-form">
-                    <form id="tournament-form">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" required pattern="\+\d{1,3} ?\d{1,4}[ \-]?\d{3,4}[ \-]?\d{3,4}" placeholder="+49 1234 567890" inputmode="tel">
-                        </div>
-                        <div class="form-group">
-                            <label for="experience">Poker Experience</label>
-                            <select id="experience" name="experience" required>
-                                <option value="">Select your experience level</option>
-                                <option value="beginner">Beginner (0-2 years)</option>
-                                <option value="intermediate">Intermediate (2-5 years)</option>
-                                <option value="advanced">Advanced (5+ years)</option>
-                                <option value="professional">Professional</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="referral">How did you hear about us?</label>
-                            <select id="referral" name="referral">
-                                <option value="">Select an option</option>
-                                <option value="social-media">Social Media</option>
-                                <option value="friend">Friend/Family</option>
-                                <option value="casino">Casino Advertisement</option>
-                                <option value="online">Online Search</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group checkbox-group">
+                
+                <form class="registration-form" action="payment.html" method="GET">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" pattern="[+]?[0-9\s\-\(\)]{10,}" placeholder="+1 234 567 8900" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <select id="country" name="country" required>
+                            <option value="">Select your country</option>
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="DE">Germany</option>
+                            <option value="FR">France</option>
+                            <option value="IT">Italy</option>
+                            <option value="ES">Spain</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="BE">Belgium</option>
+                            <option value="CH">Switzerland</option>
+                            <option value="AT">Austria</option>
+                            <option value="SE">Sweden</option>
+                            <option value="NO">Norway</option>
+                            <option value="DK">Denmark</option>
+                            <option value="FI">Finland</option>
+                            <option value="PL">Poland</option>
+                            <option value="CZ">Czech Republic</option>
+                            <option value="HU">Hungary</option>
+                            <option value="RO">Romania</option>
+                            <option value="BG">Bulgaria</option>
+                            <option value="HR">Croatia</option>
+                            <option value="SI">Slovenia</option>
+                            <option value="SK">Slovakia</option>
+                            <option value="EE">Estonia</option>
+                            <option value="LV">Latvia</option>
+                            <option value="LT">Lithuania</option>
+                            <option value="IE">Ireland</option>
+                            <option value="PT">Portugal</option>
+                            <option value="GR">Greece</option>
+                            <option value="CY">Cyprus</option>
+                            <option value="MT">Malta</option>
+                            <option value="LU">Luxembourg</option>
+                            <option value="IS">Iceland</option>
+                            <option value="LI">Liechtenstein</option>
+                            <option value="MC">Monaco</option>
+                            <option value="SM">San Marino</option>
+                            <option value="VA">Vatican City</option>
+                            <option value="AD">Andorra</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">Poker Experience Level *</label>
+                        <select id="experience" name="experience" required>
+                            <option value="">Select your experience level</option>
+                            <option value="beginner">Beginner (0-2 years)</option>
+                            <option value="intermediate">Intermediate (2-5 years)</option>
+                            <option value="advanced">Advanced (5-10 years)</option>
+                            <option value="professional">Professional (10+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
                             <input type="checkbox" id="terms" name="terms" required>
-                            <label for="terms">I agree to the tournament rules and <a href="terms.html" target="_blank" class="highlight-link">Terms of Service</a></label>
+                            <label for="terms">
+                                I agree to the <a href="terms.html" class="highlight-link" target="_blank">Terms of Service</a> and understand that this is a high-stakes tournament with significant financial implications.
+                            </label>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-full">Complete Registration</button>
-                    </form>
-                </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+                </form>
             </div>
         </div>
     </section>
@@ -394,15 +444,16 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Majectic Poker / Ultra High Roller 2025</h4>
-                    <p>The ultimate poker experience for serious players.</p>
+                    <h4>Elite Poker Championship</h4>
+                    <p>The most prestigious poker tournament of 2025, bringing together elite players from around the world for an unforgettable experience of skill, strategy, and luxury.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
+                
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
@@ -411,20 +462,32 @@
                         <li><a href="#schedule">Schedule</a></li>
                         <li><a href="#prizes">Prizes</a></li>
                         <li><a href="#register">Register</a></li>
-                        <li><a href="terms.html" target="_blank">Terms of Service</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-section">
-                    <h4>Contact Info</h4>
+                    <h4>Contact Information</h4>
                     <ul>
-                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
-                        <li><i class="fas fa-envelope"></i> info@royalflush.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Casinò di Campione</li>
+                        <li><i class="fas fa-envelope"></i> info@elitepokerchampionship.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Luxury Resort & Casino, Monaco</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9AM-6PM CET</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Responsible Gaming</a></li>
+                        <li><a href="#">Age Verification</a></li>
                     </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2025 Majectic Poker / Ultra High Roller 2025. All rights reserved.</p>
+                <p>&copy; 2025 Elite Poker Championship. All rights reserved. | Professional poker tournament for experienced players only.</p>
             </div>
         </div>
     </footer>
